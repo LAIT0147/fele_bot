@@ -15,16 +15,17 @@ def message_start(message):
 
 @bot.message_handler(commands=['courses'])
 def message_courses(message):
-    keyboard = telebot.types.InLineKeyboardMarkup(row_width=1)
+    keyboard = telebot.types.InlineKeyboardMarkup(row_width=1)
 
     with open('courses.txt') as file:
         courses = [item.split(',') for item in file]
 
         for title, link in courses:
-            url_button = telebot.types.InLineKeyboardButton(text=title.strip(), url=link.strip())
+            url_button = telebot.types.InlineKeyboardButton(text=title.strip(), url=link.strip())
             keyboard.add(url_button)
 
         bot.send_message(message.chat.id, 'List of courses', reply_markup=keyboard)
+
 
         
 @bot.message_handler(func=lambda x: x.text.lower().startswith('python'))
